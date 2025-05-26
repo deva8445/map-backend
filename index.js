@@ -84,5 +84,5 @@ function haversineDistance(p1, p2) {
 }
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on port => ${PORT}`);
 });
