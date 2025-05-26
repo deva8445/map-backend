@@ -13,7 +13,7 @@ const GOOGLE_API_KEY = 'AIzaSyBbQCdq4EUZhYu4gr_7BK94NqZG2e2liqI';
 app.post('/api/directions/snap-to-roads', async (req, res) => {
   try {
     const path = req.body.path;
-
+    console.log("Direction=====> ", path);
     if (!path || path.length < 2) {
       return res.status(400).json({ error: 'At least two coordinates required.' });
     }
@@ -32,7 +32,7 @@ app.post('/api/directions/snap-to-roads', async (req, res) => {
 
     const legs = response.data.routes[0].legs;
     const totalDistance = legs.reduce((sum, leg) => sum + leg.distance.value, 0);
-    console.log(totalDistance,"=========================");
+    console.log(totalDistance,"=========================direction");
     
 
     res.json({ distance: (totalDistance / 1000).toFixed(2), from: "Direction API" });
@@ -46,7 +46,7 @@ app.post('/api/roads/snap-to-roads', async (req, res) => {
   try {
     const path = req.body.path;
     const points = path.map(p => `${p.lat},${p.lng}`).join('|');
-
+    console.log("Road======> ",path);
     const snapUrl = `https://roads.googleapis.com/v1/snapToRoads?path=${points}&interpolate=true&key=${GOOGLE_API_KEY}`;
     const response = await axios.get(snapUrl);
     
@@ -59,7 +59,7 @@ app.post('/api/roads/snap-to-roads', async (req, res) => {
       totalDistance += haversineDistance(prev, curr);
     }
 
-    console.log(totalDistance,"--------------------");
+    console.log(totalDistance,"--------------------road");
     
 
     res.json({ distance: totalDistance.toFixed(2), from : "Road API" });
