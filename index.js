@@ -12,7 +12,8 @@ const GOOGLE_API_KEY = 'AIzaSyBbQCdq4EUZhYu4gr_7BK94NqZG2e2liqI';
 
 app.post('/api/directions/snap-to-roads', async (req, res) => {
   try {
-    const path = req.body.path;
+    const rawPath = req.body.path;
+const path = removeDuplicates(rawPath);
     console.log("Direction=====> ", path);
     if (!path || path.length < 2) {
       return res.status(400).json({ error: 'At least two coordinates required.' });
@@ -106,6 +107,20 @@ function haversineDistance(p1, p2) {
             Math.sin(dLng / 2) ** 2;
 
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+function removeDuplicates(path, threshold = 0.00001) {
+  const cleaned = [];
+  for (let i = 0; i < path.length; i++) {
+    if (
+      i === 0 ||
+      Math.abs(path[i].lat - path[i - 1].lat) > threshold ||
+      Math.abs(path[i].lng - path[i - 1].lng) > threshold
+    ) {
+      cleaned.push(path[i]);
+    }
+  }
+  return cleaned;
 }
 
 app.listen(PORT, () => {
