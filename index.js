@@ -14,7 +14,7 @@ app.post('/api/directions/snap-to-roads', async (req, res) => {
   try {
     const rawPath = req.body.path;
 // const path = removeDuplicates(rawPath);
-    console.log("Direction=====> ", path);
+    console.log("Direction=====> ", rawPath);
     if (!path || path.length < 2) {
       return res.status(400).json({ error: 'At least two coordinates required.' });
     }
