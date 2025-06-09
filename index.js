@@ -13,7 +13,7 @@ const GOOGLE_API_KEY = 'AIzaSyBbQCdq4EUZhYu4gr_7BK94NqZG2e2liqI';
 app.post('/api/directions/snap-to-roads', async (req, res) => {
   try {
     const rawPath = req.body.path;
-const path = removeDuplicates(rawPath);
+// const path = removeDuplicates(rawPath);
     console.log("Direction=====> ", path);
     if (!path || path.length < 2) {
       return res.status(400).json({ error: 'At least two coordinates required.' });
