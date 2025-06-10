@@ -11,8 +11,10 @@ app.use(express.json());
 const GOOGLE_API_KEY = 'AIzaSyBbQCdq4EUZhYu4gr_7BK94NqZG2e2liqI';
 
 app.post('/api/directions/snap-to-roads', async (req, res) => {
+  console.log("Snap to Roads API called");
+  
   try {
-    const rawPath = req.body.path;
+    const path = req.body.path;
 // const path = removeDuplicates(rawPath);
     console.log("Direction=====> ", path);
     if (!path || path.length < 2) {
